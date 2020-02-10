@@ -271,9 +271,17 @@ window.addEventListener( 'load', (  ) => {
 
     setTimeout(() => {
 
+        document.body.classList.add( 'show' );
+
         name.classList.add( 'show' );
 
     }, 300);
+
+    setTimeout(() => {
+
+        document.querySelector( '.spinner' ).classList.add( 'hide' );
+
+    }, 2000);
 
     setTimeout(() => {
 
