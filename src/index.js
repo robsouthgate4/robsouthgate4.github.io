@@ -5,8 +5,6 @@ import translucentPBR from './materials/translucentPBR'
 import translucentPhong from './materials/translucentPhong'
 import Webgl from './Webgl'
 
-import sun from './assets/images/lab/sun2.png';
-
 import plexusVideo from './assets/videos/lab/compressedx2/plexus.mp4';
 import sunVideo from './assets/videos/lab/compressedx2/sun3.mp4';
 import bubbleVideo from './assets/videos/lab/compressedx2/bubble.mp4';
@@ -60,7 +58,7 @@ const loader = new THREE.OBJLoader2()
 let mesh
 
 function onResize() {
-    webgl.resize(container.clientWidth, container.clientHeight)
+    webgl.resize(window.innerWidth, window.innerHeight)
 }
 
 window.addEventListener('resize', onResize)
@@ -194,7 +192,7 @@ function createItem ( project ) {
        
    })
 
-   li.addEventListener( 'touchdown', ()  => {
+   li.addEventListener( 'touchstart', ()  => {
 
     video.play();
     
