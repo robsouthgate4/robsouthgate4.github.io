@@ -42,7 +42,7 @@ module.exports = env => {
         output: {
             filename: '[name].bundle.js',
             path: path.resolve(__dirname, 'docs/'),
-            publicPath: env.NODE_ENV === 'production' ? '/assets/' : ''
+            publicPath: env.NODE_ENV === 'production' ? '/' : ''
         },
         module: {
             rules: [
