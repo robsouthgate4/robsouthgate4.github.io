@@ -14,7 +14,7 @@ module.exports = env => {
         },
         devtool: env.NODE_ENV === 'production' ? '' : 'inline-source-map',
         devServer: {
-            contentBase: './dist',
+            contentBase: './docs',
             hot: env.NODE_ENV === 'production' ? false : true
         },
         plugins: [
@@ -41,7 +41,7 @@ module.exports = env => {
         mode: env.NODE_ENV === 'production' ? 'production' : 'development',
         output: {
             filename: '[name].bundle.js',
-            path: path.resolve(__dirname, 'dist/assets/'),
+            path: path.resolve(__dirname, 'docs/'),
             publicPath: env.NODE_ENV === 'production' ? '/assets/' : ''
         },
         module: {
