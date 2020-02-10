@@ -86,7 +86,7 @@ body, html {
     position: absolute;
     width: 40%;
     max-width: 600px;
-    height: 100vh;
+    height: 90%;
     right: 10%;
     top: 52%;
     z-index: 1000;
