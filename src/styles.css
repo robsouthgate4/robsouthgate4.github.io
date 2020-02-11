@@ -91,8 +91,7 @@ body.show {
 }
 
 .content {
-    opacity: 0;
-    pointer-events: none;
+    opacity: 0;    
     position: absolute;
     width: 40%;
     max-width: 600px;
@@ -102,6 +101,7 @@ body.show {
     z-index: 1000;
     transform: translateY(-50%);
     overflow-y: scroll;
+    pointer-events: none;
     padding: 0;
     transition: opacity 0.2s ease-in;
 }
@@ -134,15 +134,19 @@ body.show {
     margin-bottom: 40px;
     width: 100%;
     position: relative;
-    /* cursor: pointer; */
+    /* cursor: pointer; */    
 }
 
-.content li.full-display video{
+.content li.full-display video, .content li.full-display img{
     width: 100%;
     max-width: 100%;
     opacity: 0.5;
     transition: transform .3s ease;
     transform: scale(1.1);
+}
+
+.content li.full-display img {
+    opacity: 1;
 }
 
 .content li.full-display .text{
@@ -189,11 +193,15 @@ body.show {
     transition: transform .3s ease;
 }
 
-.content li video {
+.content li video, .content li img {
     width: 50%;
     max-width: 300px;
     opacity: 0.5;
     transition: transform .3s ease;
+}
+
+.content li img {
+    opacity: 1;
 }
 
 .content li img:hover, .content li video:hover {
@@ -356,7 +364,7 @@ body.show {
     }
 
     .site {
-        position: sticky;
+        position: relative;
     }
 
     html {
@@ -364,15 +372,15 @@ body.show {
     }
 
     body {
-        display: flex;
-        flex-direction: column;
+        /* display: flex;
+        flex-direction: column;*/
         overflow-y: scroll;
     }
 
     .content {
         position: relative;
         width: 100% !important;
-        height: 100%;
+        height: auto !important;
         transform: translate(0,0);
         display: block !important;
         opacity: 1 !important;
@@ -382,14 +390,18 @@ body.show {
         padding: 20px;
         box-sizing: border-box;
         z-index: 2000;
+        padding-bottom: 50px;
     }
 
-    .content li video {
+    .content li video, .content li img {
         opacity: 1 !important;
     }
+    
 
     .content li.full-display .text{
-        top: 0 !important;
+        position: sticky;
+        top: auto !important;
+        bottom: 0 !important;
         opacity: 1 !important;
     }
 

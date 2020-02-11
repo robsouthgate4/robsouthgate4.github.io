@@ -8,12 +8,20 @@ import Webgl from './Webgl'
 import plexusVideo from './assets/videos/lab/compressedx2/plexus.mp4';
 import sunVideo from './assets/videos/lab/compressedx2/sun3.mp4';
 import bubbleVideo from './assets/videos/lab/compressedx2/bubble.mp4';
-
 import hamiltonVideo from './assets/videos/portfolio/compressedx2/hamilton.mp4';
 import fangioVideo from './assets/videos/portfolio/compressedx2/fangio.mp4';
 import caracciolaVideo from './assets/videos/portfolio/compressedx2/caracciola.mp4';
 import hazardVideo from './assets/videos/portfolio/compressedx2/hazard.mp4';
 import tomorrowLandVideo from './assets/videos/portfolio/compressedx2/tomorrowland.mp4';
+
+import plexusGif from './assets/videos/lab/gif_small/plexus.gif';
+import sunGif from './assets/videos/lab/gif_small/sun3.gif';
+import bubbleGif from './assets/videos/lab/gif_small/bubble.gif';
+import hamiltonGif from './assets/videos/portfolio/gif_small/hamilton.gif';
+import fangioGif from './assets/videos/portfolio/gif_small/fangio.gif';
+import caracciolaGif from './assets/videos/portfolio/gif_small/caracciola.gif';
+import hazardGif from './assets/videos/portfolio/gif_small/hazard.gif';
+import tomorrowLandGif from './assets/videos/portfolio/gif_small/tomorrowland.gif';
 
 
 import './styles.css'
@@ -25,8 +33,8 @@ var cvimg = document.querySelector('.cv-profile');
 cvimg.src = profileIcon;
 
 
-const name = document.querySelector( '.site .name' );
-const title = document.querySelector( '.site .name .title' );
+const name = document.querySelector('.site .name');
+const title = document.querySelector('.site .name .title');
 
 const Stats = require('stats.js')
 // const stats = new Stats()
@@ -40,38 +48,48 @@ container.appendChild(webgl.dom)
 
 //document.body.appendChild( stats.dom )
 
-var now,delta,then = Date.now()
-var interval = 1000/60
+var now, delta, then = Date.now()
+var interval = 1000 / 60
 
 const animate = (time) => {
-    requestAnimationFrame (animate)
+    requestAnimationFrame(animate)
     now = Date.now()
     delta = now - then
     //update time dependent animations here at 30 fps
-    if (delta > interval) {        
+    if (delta > interval) {
         webgl.update(time)
-        then = now - (delta % interval)    }
+        then = now - (delta % interval)
+    }
 }
 
 
 const loader = new THREE.OBJLoader2()
-let mesh
+let mesh;
+let mobile = false;
+
+if (window.innerWidth <= 600) {
+    mobile = true;
+}
 
 function onResize() {
-    webgl.resize(window.innerWidth, window.innerHeight)
+    if (window.innerWidth <= 600) {
+        mobile = true;
+    }
+    webgl.resize(window.innerWidth, window.innerHeight);
 }
 
 window.addEventListener('resize', onResize)
 window.addEventListener('orientationchange', onResize)
 
 
-const callbackOnLoad = (event) => { 
+
+const callbackOnLoad = (event) => {
 
     const geo = event.detail.loaderRootNode
     webgl.init(geo)
 
     animate()
-    
+
 };
 
 loader.load(hexagonObj, callbackOnLoad, null, null, null, false)
@@ -83,6 +101,7 @@ const experiments = [
         tech: "WebGL",
         languages: "Javascript / GLSL Shaders / PostProcessing",
         videoSrc: bubbleVideo,
+        gifSrc: bubbleGif,
         filter: false
     },
     {
@@ -90,6 +109,7 @@ const experiments = [
         tech: "WebGL, Houdini",
         languages: "Javascript / GLSL Shaders / PostProcessing",
         videoSrc: plexusVideo,
+        gifSrc: plexusGif,
         filter: false
     },
     {
@@ -97,6 +117,7 @@ const experiments = [
         tech: "WebGL / GPGPU / Particles",
         languages: "Javascript / GLSL Shaders / PostProcessing",
         videoSrc: sunVideo,
+        gifSrc: sunGif,
         filter: false
     }
 
@@ -109,6 +130,7 @@ const projects = [
         tech: "Instagram / Facebook",
         languages: "Javascript / GLSL Shaders / PostProcessing",
         videoSrc: hamiltonVideo,
+        gifSrc: hamiltonGif,
         filter: true,
     },
     {
@@ -116,6 +138,7 @@ const projects = [
         tech: "Instagram / Facebook",
         languages: "Javascript / GLSL Shaders / PostProcessing",
         videoSrc: fangioVideo,
+        gifSrc: fangioGif,
         filter: true
     },
     {
@@ -123,97 +146,224 @@ const projects = [
         tech: "Instagram / Facebook",
         languages: "Javascript / GLSL Shaders / PostProcessing",
         videoSrc: caracciolaVideo,
+        gifSrc: caracciolaGif,
         filter: true
-    },{
+    }, {
         name: "Fifa ultimate team 2020",
         tech: "Instagram / Facebook",
         languages: "Javascript / GLSL Shaders / PostProcessing / Houdini",
         videoSrc: hazardVideo,
+        gifSrc: hazardGif,
         filter: true,
-    },{
+    }, {
         name: "Tomorrowland 2019",
         tech: "Instagram / Facebook",
         languages: "Javascript / GLSL Shaders",
         videoSrc: tomorrowLandVideo,
+        gifSrc: tomorrowLandGif,
         filter: true,
     }
-    
+
 ];
 
 
 // Generate HTML
 
-const lab = document.createElement( 'ul' );
+const lab = document.createElement('ul');
 lab.className = "lab content"
 
-const portfolio = document.createElement( 'ul' );
+const portfolio = document.createElement('ul');
 portfolio.className = "portfolio content"
 
 
 
-document.body.appendChild( lab );
-document.body.appendChild( portfolio );
+document.body.appendChild(lab);
+document.body.appendChild(portfolio);
 
-function createItem ( project ) {
+let currentVideoId;
 
-    const li = document.createElement( 'li' );   
-    const title = document.createElement( 'h2' );   
+function createItemVideo( project ) {
+
+    const li = document.createElement('li');
+    const title = document.createElement('h2');
 
     title.innerText = project.name;
-    title.className = "title";    
+    title.className = "title";
 
-   const tech = document.createElement( 'p' );
-   tech.innerText = project.tech;
+    const tech = document.createElement('p');
+    tech.innerText = project.tech;
 
-   const languages = document.createElement( 'p' );
-   languages.innerText = project.languages;
+    const languages = document.createElement('p');
+    languages.innerText = project.languages;
 
-   const video = document.createElement( 'video' );
-   video.src = project.videoSrc;
-   video.autoplay = false;
-   video.loop = true;
-   video.controls = false;
-   li.append( video );
+    const video = document.createElement('video');
+    video.id = `video-${project.name}`
+    video.src = project.videoSrc;
+    video.autoplay = false;
+    video.loop = true;
+    video.controls = false;
+    video.currentTime = 0;
+    video.muted = true;
 
+    video.setAttribute('webkit-playsinline', 'webkit-playsinline');
 
-   const text = document.createElement( 'div' );
-   text.classList.add( 'text' );
-   text.appendChild(title);
+    if ( mobile ) {
 
-   text.appendChild( tech );
+        requestAnimationFrame(update);
 
-   text.appendChild( languages );
+    }
 
-   li.appendChild( text );
-
-   li.addEventListener( 'mouseenter', ()  => {
-
-       video.play();
-       
-   })
-
-   li.addEventListener( 'touchstart', ()  => {
-
-    video.play();
     
+
+    async function playVideo() {
+        try {
+            await video.play();
+        } catch (err) {
+
+        }
+    }
+
+    function handlePlay() {
+
+        let videoId = currentVideoId;
+
+        if (video.paused) {
+            playVideo();
+        } else {
+            video.pause();
+        }
+    }
+
+
+    function update() {
+
+        const bounding = video.getBoundingClientRect();       
+
+        //if ( mobile ) {
+        if (
+            bounding.top >= 0 &&
+            bounding.left >= 0 &&
+            bounding.right <= (window.innerWidth || document.documentElement.clientWidth) &&
+            bounding.bottom <= (window.innerHeight || document.documentElement.clientHeight)
+        ) {
+
+            currentVideoId = video.id;
+
+            console.log( currentVideoId );
+
+            //handlePlay( video );
+
+        } else {
+
+            video.pause();
+
+        }
+        // }
+
+
+        requestAnimationFrame(update);
+
+    }
+
+    document.body.addEventListener('scroll', () => {
+
+        const video = document.getElementById( currentVideoId );
+        video.play();
+
+    })
+
+
+
+
+
+    li.append(video);
+
+
+    const text = document.createElement('div');
+    text.classList.add('text');
+    text.appendChild(title);
+
+    text.appendChild(tech);
+
+    text.appendChild(languages);
+
+    li.appendChild(text);
+
+    li.addEventListener('mouseenter', () => {
+
+        video.play();
+
+    })
+
+    li.addEventListener('touchstart', () => {
+
+        //video.play();
+
     });
 
-   li.addEventListener( 'mouseleave', ()  => {
+    li.addEventListener('mouseleave', () => {
 
-       video.pause();
-       
-   })
+        video.pause();
 
-    if ( project.filter ) {
-       
-        li.classList.add( 'mobile-display' );
+    })
+
+    if (project.filter) {
+
+        li.classList.add('mobile-display');
 
     } else {
 
-        li.classList.add( 'full-display' );
-        
+        li.classList.add('full-display');
+
     }
-    
+
+
+
+    return li;
+
+}
+
+function createItemGif( project ) {
+
+    const li = document.createElement('li');
+    const title = document.createElement('h2');
+
+    title.innerText = project.name;
+    title.className = "title";
+
+    const tech = document.createElement('p');
+    tech.innerText = project.tech;
+
+    const languages = document.createElement('p');
+    languages.innerText = project.languages;
+
+    const gif = document.createElement('img');
+    gif.id = `gif-${project.name}`
+    gif.src = project.gifSrc;
+
+    li.append(gif);
+
+
+    const text = document.createElement('div');
+    text.classList.add('text');
+    text.appendChild(title);
+
+    text.appendChild(tech);
+
+    text.appendChild(languages);
+
+    li.appendChild(text);
+
+    if (project.filter) {
+
+        li.classList.add('mobile-display');
+
+    } else {
+
+        li.classList.add('full-display');
+
+    }
+
 
 
     return li;
@@ -221,44 +371,65 @@ function createItem ( project ) {
 }
 
 
-experiments.forEach( ( project ) => {
+experiments.forEach((project) => {
 
-    lab.appendChild( createItem( project ) );
+    if ( getMobileOperatingSystem() != "iOS" ) {
+
+        lab.appendChild(createItemVideo(project));
+
+    } else {
+
+        lab.appendChild(createItemGif(project));
+
+    }
+
     
-} );
 
-projects.forEach( ( project ) => {
+});
 
-    portfolio.appendChild( createItem( project ) );
+projects.forEach((project) => {
+
+    console.log( getMobileOperatingSystem() );
+
+    if ( getMobileOperatingSystem() != "iOS" ) {
+
+        portfolio.appendChild(createItemVideo(project));
+
+    } else {
+
+        lab.appendChild(createItemGif(project));
+
+    }
     
-} );
+
+});
 
 
-const mainMenuItems = document.querySelectorAll( '.main-menu li a' );
+const mainMenuItems = document.querySelectorAll('.main-menu li a');
 
-mainMenuItems.forEach( ( item )  => {
+mainMenuItems.forEach((item) => {
 
-    item.addEventListener( 'click', ( e ) => {
+    item.addEventListener('click', (e) => {
 
         // lab.classList.remove( 'show' );
         // portfolio.classList.remove( 'show' );
 
-        if ( e.target.id === "lab" ) {
-        
-            lab.classList.contains( 'show') ? lab.classList.remove( 'show' ) : lab.classList.add( 'show' );
+        if (e.target.id === "lab") {
 
-            portfolio.classList.remove( 'show' );
+            lab.classList.contains('show') ? lab.classList.remove('show') : lab.classList.add('show');
+
+            portfolio.classList.remove('show');
         }
 
-        if ( e.target.id === "portfolio" ) {
-        
-            portfolio.classList.contains( 'show') ? portfolio.classList.remove( 'show' ) : portfolio.classList.add( 'show' );
+        if (e.target.id === "portfolio") {
 
-            lab.classList.remove( 'show' );
+            portfolio.classList.contains('show') ? portfolio.classList.remove('show') : portfolio.classList.add('show');
+
+            lab.classList.remove('show');
 
         }
-        
-    } );
+
+    });
 
 })
 
@@ -267,29 +438,29 @@ mainMenuItems.forEach( ( item )  => {
 
 
 
-window.addEventListener( 'load', (  ) => {
+window.addEventListener('load', () => {
 
     setTimeout(() => {
 
-        document.body.classList.add( 'show' );
+        document.body.classList.add('show');
 
-        name.classList.add( 'show' );
+        name.classList.add('show');
 
     }, 300);
 
     setTimeout(() => {
 
-        document.querySelector( '.spinner' ).classList.add( 'hide' );
+        document.querySelector('.spinner').classList.add('hide');
 
     }, 2000);
 
     setTimeout(() => {
 
-        title.classList.add( 'show' );
+        title.classList.add('show');
 
     }, 500);
 
-} );
+});
 
 
 
@@ -300,25 +471,25 @@ window.addEventListener( 'load', (  ) => {
 const startPosPortfolio = portfolio.offsetTop;
 const startPosLab = lab.offsetTop;
 
-function applyScrollPortfolio( event ) {
+function applyScrollPortfolio(event) {
 
-    scrollDiv( event, portfolio, startPosPortfolio );
-
-}
-
-function applyScrollLab( event ) {
-
-    scrollDiv( event, lab, startPosLab );
+    scrollDiv(event, portfolio, startPosPortfolio);
 
 }
 
-function scrollDiv( event, el, startPos ) {
+function applyScrollLab(event) {
 
-    if ( ! event ) event = window.event;
+    scrollDiv(event, lab, startPosLab);
+
+}
+
+function scrollDiv(event, el, startPos) {
+
+    if (!event) event = window.event;
 
     // normalize the delta
 
-    if ( event.wheelDelta ) {
+    if (event.wheelDelta) {
 
         // IE and Opera
 
@@ -332,14 +503,35 @@ function scrollDiv( event, el, startPos ) {
 
     }
 
-    var currPos = el.offsetTop;    
+    var currPos = el.offsetTop;
 
     // calculating the next position of the object
 
-    currPos = parseInt( currPos ) + ( delta * 10 );
+    currPos = parseInt(currPos) + (delta * 10);
 
-    if ( currPos > startPos ) return;
+    if (currPos > startPos) return;
 
     el.style.top = currPos + 'px'
 
 }
+
+
+function getMobileOperatingSystem() {
+    var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+  
+        // Windows Phone must come first because its UA also contains "Android"
+      if (/windows phone/i.test(userAgent)) {
+          return "Windows Phone";
+      }
+  
+      if (/android/i.test(userAgent)) {
+          return "Android";
+      }
+  
+      // iOS detection from: http://stackoverflow.com/a/9039885/177710
+      if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+          return "iOS";
+      }
+  
+      return "unknown";
+  }
