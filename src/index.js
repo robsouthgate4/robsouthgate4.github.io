@@ -8,6 +8,7 @@ import Webgl from './Webgl'
 import plexusVideo from './assets/videos/lab/compressedx2/plexus.mp4';
 import sunVideo from './assets/videos/lab/compressedx2/sun3.mp4';
 import bubbleVideo from './assets/videos/lab/compressedx2/bubble.mp4';
+import motionVideo from './assets/videos/lab/compressedx2/motionFlow2.mp4';
 import hamiltonVideo from './assets/videos/portfolio/compressedx2/hamilton.mp4';
 import fangioVideo from './assets/videos/portfolio/compressedx2/fangio.mp4';
 import caracciolaVideo from './assets/videos/portfolio/compressedx2/caracciola.mp4';
@@ -95,7 +96,14 @@ const callbackOnLoad = (event) => {
 loader.load(hexagonObj, callbackOnLoad, null, null, null, false)
 
 const experiments = [
-
+    {
+        name: "Motionblur particles",
+        tech: "WebGL",
+        languages: "Javascript / GLSL Shaders / PostProcessing",
+        videoSrc: motionVideo,
+        gifSrc: null,
+        filter: false
+    },
     {
         name: "WebGL Bubble",
         tech: "WebGL",
@@ -378,6 +386,8 @@ experiments.forEach((project) => {
         lab.appendChild(createItemVideo(project));
 
     } else {
+
+        if ( ! project.gifSrc ) return;
 
         lab.appendChild(createItemGif(project));
 
