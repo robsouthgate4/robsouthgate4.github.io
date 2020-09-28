@@ -214,6 +214,8 @@ const TranslucentPBR  = {
             #endif
         #endif
 
+       // reflectedLight.directDiffuse *= length( vUv );
+
         // modulation
         #include <aomap_fragment>
 
@@ -234,22 +236,7 @@ const TranslucentPBR  = {
 
 }
 
-// const urls = [
-//     px,
-//     nx,
-//     py,
-//     ny,
-//     pz,
-//     nz
-// ]
-
-/**
- * Cubemap
- */
-// const textureCube = new THREE.CubeTextureLoader().load(urls);
-// textureCube.format = THREE.RGBFormat;
-// textureCube.mapping = THREE.CubeReflectionMapping;
-// textureCube.encoding = THREE.sRGBEncoding;
+import frostNormal from "../assets/images/frost.png"
 
 THREE.ShaderLib.TranslucentPBR = TranslucentPBR
 
@@ -264,10 +251,10 @@ const customUniforms = THREE.UniformsUtils.merge([
         attractorPos: { type: 'v3', value: new THREE.Vector3() },
         thicknessMap: { type: 't', value: new THREE.Texture() },
         thicknessRepeat: { type: 'v3', value: new THREE.Vector2() },
-        thicknessPower: { type: 'f', value: 20 },
-        thicknessScale: { type: 'f', value: 30 },
+        thicknessPower: { type: 'f', value:20 },
+        thicknessScale: { type: 'f', value: 40 },
         thicknessDistortion: { type: 'f', value: 0.185 },
-        thicknessAmbient: { type: 'f', value: 0.5 },
+        thicknessAmbient: { type: 'f', value: 1.0 },
         particlePositions: { type: 'v3v', value: [  ] },
     }
 ]);
@@ -284,10 +271,13 @@ translucentPBR.lights = true
 
 translucentPBR.uniforms.diffuse.value = new Color(`rgb(3, 3, 3)`);
 translucentPBR.uniforms.roughness.value = 1.0
-translucentPBR.uniforms.metalness.value = 0.2
+translucentPBR.uniforms.metalness.value = 0.6
+//translucentPBR.uniforms.normalMap.value = new TextureLoader().load( frostNormal );
 
-translucentPBR.roughness= 1.0
-translucentPBR.metalness= 0.2
+translucentPBR.roughness = 1.0;
+translucentPBR.metalness = 0.6;
+
+//translucentPBR.normalMap = new TextureLoader().load( frostNormal );
 
 
 export default translucentPBR;

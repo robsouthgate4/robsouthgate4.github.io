@@ -5,15 +5,16 @@ import translucentPBR from './materials/translucentPBR'
 import translucentPhong from './materials/translucentPhong'
 import Webgl from './Webgl'
 
-import plexusVideo from './assets/videos/lab/compressedx2/plexus.mp4';
-import sunVideo from './assets/videos/lab/compressedx2/sun3.mp4';
-import bubbleVideo from './assets/videos/lab/compressedx2/bubble.mp4';
-import motionVideo from './assets/videos/lab/compressedx2/motionFlow2.mp4';
-import hamiltonVideo from './assets/videos/portfolio/compressedx2/hamilton.mp4';
-import fangioVideo from './assets/videos/portfolio/compressedx2/fangio.mp4';
-import caracciolaVideo from './assets/videos/portfolio/compressedx2/caracciola.mp4';
-import hazardVideo from './assets/videos/portfolio/compressedx2/hazard.mp4';
-import tomorrowLandVideo from './assets/videos/portfolio/compressedx2/tomorrowland.mp4';
+import plexusVideo          from './assets/videos/lab/compressedx2/plexus.mp4';
+import sunVideo             from './assets/videos/lab/compressedx2/sun3.mp4';
+import bubbleVideo          from './assets/videos/lab/compressedx2/bubble.mp4';
+import motionVideo          from './assets/videos/lab/compressedx2/motionFlow2.mp4';
+import hamiltonVideo        from './assets/videos/portfolio/compressedx2/hamilton.mp4';
+import fangioVideo          from './assets/videos/portfolio/compressedx2/fangio.mp4';
+import caracciolaVideo      from './assets/videos/portfolio/compressedx2/caracciola.mp4';
+import hazardVideo          from './assets/videos/portfolio/compressedx2/hazard.mp4';
+import tomorrowLandVideo    from './assets/videos/portfolio/compressedx2/tomorrowland.mp4';
+import fifa21               from './assets/videos/portfolio/compressed/fifa.mp4';
 
 import plexusGif from './assets/videos/lab/gif_small/plexus.gif';
 import sunGif from './assets/videos/lab/gif_small/sun3.gif';
@@ -101,6 +102,7 @@ const experiments = [
         tech: "WebGL",
         languages: "Javascript / GLSL Shaders / PostProcessing",
         videoSrc: motionVideo,
+        posterFrame: 0,
         gifSrc: null,
         filter: false
     },
@@ -109,6 +111,7 @@ const experiments = [
         tech: "WebGL",
         languages: "Javascript / GLSL Shaders / PostProcessing",
         videoSrc: bubbleVideo,
+        posterFrame: 3,
         gifSrc: bubbleGif,
         filter: false
     },
@@ -117,6 +120,7 @@ const experiments = [
         tech: "WebGL, Houdini",
         languages: "Javascript / GLSL Shaders / PostProcessing",
         videoSrc: plexusVideo,
+        posterFrame: 3,
         gifSrc: plexusGif,
         filter: false
     },
@@ -125,6 +129,7 @@ const experiments = [
         tech: "WebGL / GPGPU / Particles",
         languages: "Javascript / GLSL Shaders / PostProcessing",
         videoSrc: sunVideo,
+        posterFrame: 3,
         gifSrc: sunGif,
         filter: false
     }
@@ -134,10 +139,20 @@ const experiments = [
 const projects = [
 
     {
+        name: "EA Sports FIFA 21",
+        tech: "Instagram / Facebook",
+        languages: "Javascript / GLSL Shaders / PostProcessing / Render passes",
+        videoSrc: fifa21,
+        posterFrame: 5,
+        gifSrc: null,
+        filter: true,
+    },
+    {
         name: "Mercedes Roar Hamilton",
         tech: "Instagram / Facebook",
         languages: "Javascript / GLSL Shaders / PostProcessing",
         videoSrc: hamiltonVideo,
+        posterFrame: 3,
         gifSrc: hamiltonGif,
         filter: true,
     },
@@ -146,6 +161,7 @@ const projects = [
         tech: "Instagram / Facebook",
         languages: "Javascript / GLSL Shaders / PostProcessing",
         videoSrc: fangioVideo,
+        posterFrame: 3,
         gifSrc: fangioGif,
         filter: true
     },
@@ -154,6 +170,7 @@ const projects = [
         tech: "Instagram / Facebook",
         languages: "Javascript / GLSL Shaders / PostProcessing",
         videoSrc: caracciolaVideo,
+        posterFrame: 3,
         gifSrc: caracciolaGif,
         filter: true
     }, {
@@ -161,6 +178,7 @@ const projects = [
         tech: "Instagram / Facebook",
         languages: "Javascript / GLSL Shaders / PostProcessing / Houdini",
         videoSrc: hazardVideo,
+        posterFrame: 3,
         gifSrc: hazardGif,
         filter: true,
     }, {
@@ -168,6 +186,7 @@ const projects = [
         tech: "Instagram / Facebook",
         languages: "Javascript / GLSL Shaders",
         videoSrc: tomorrowLandVideo,
+        posterFrame: 3,
         gifSrc: tomorrowLandGif,
         filter: true,
     }
@@ -206,7 +225,7 @@ function createItemVideo( project ) {
 
     const video = document.createElement('video');
     video.id = `video-${project.name}`
-    video.src = project.videoSrc;
+    video.src = `${ project.videoSrc }#t=${project.posterFrame || 0}`;
     video.autoplay = false;
     video.loop = true;
     video.controls = false;
