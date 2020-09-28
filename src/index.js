@@ -16,6 +16,7 @@ import hazardVideo          from './assets/videos/portfolio/compressedx2/hazard.
 import tomorrowLandVideo    from './assets/videos/portfolio/compressedx2/tomorrowland.mp4';
 import fifa21               from './assets/videos/portfolio/compressed/fifa.mp4';
 import flocking             from './assets/videos/lab/compressed/swarm.mp4'
+import cca                  from './assets/videos/lab/compressed/cca.mp4'
 
 import plexusGif            from './assets/videos/lab/gif_small/plexus.gif';
 import sunGif               from './assets/videos/lab/gif_small/sun3.gif';
@@ -99,6 +100,15 @@ loader.load(hexagonObj, callbackOnLoad, null, null, null, false)
 
 const experiments = [
     {
+        name: "Web CCA simulation",
+        tech: "WebGL",
+        languages: "Javascript / GLSL Shaders / PostProcessing / GPGPU / Algorithms",
+        videoSrc: cca,
+        posterFrame: 1,
+        gifSrc: null,
+        filter: false
+    },
+    {
         name: "Web flocking",
         tech: "WebGL",
         languages: "Javascript / GLSL Shaders / PostProcessing / GPGPU",
@@ -115,7 +125,7 @@ const experiments = [
         posterFrame: 3,
         gifSrc: bubbleGif,
         filter: false
-    },
+    },    
     {
         name: "Plexus statue",
         tech: "WebGL, Houdini",
