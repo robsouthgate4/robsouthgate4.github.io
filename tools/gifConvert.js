@@ -1,8 +1,19 @@
-const gify = require('gify');
+var fs      = require('fs');
+var gifify  = require('gifify');
+var path    = require('path');
 
-gify('../src/assets/videos/portfolio/compressed/fifa.mp4', '../src/assets/videos/portfolio/gif_small/fifa.gif', {
-    duration: 10,
-    width: 500
-}, function(err){
-    if (err) throw err;
-});
+
+var input = path.join(__dirname, '../src/assets/videos/lab/compressed/swarm.mp4');
+var output = path.join(__dirname, '../src/out.gif');
+
+var gif = fs.createWriteStream(output);
+
+var options = {
+
+  resize: '200:-1',
+  from: 30,
+  to: 35
+
+};
+
+gifify( input, options ).pipe( gif );
