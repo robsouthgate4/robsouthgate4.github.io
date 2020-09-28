@@ -1,9 +1,9 @@
 import 'three/examples/js/loaders/LoaderSupport'
 import 'three/examples/js/loaders/OBJLoader2'
-import hexagonObj from './models/hexagon/hexagon.obj'
-import translucentPBR from './materials/translucentPBR'
-import translucentPhong from './materials/translucentPhong'
-import Webgl from './Webgl'
+import hexagonObj       from './models/hexagon/hexagon.obj'
+import Webgl            from './Webgl'
+import cursorScroll     from "./assets/images/scroll.png"
+
 
 import plexusVideo          from './assets/videos/lab/compressedx2/plexus.mp4';
 import sunVideo             from './assets/videos/lab/compressedx2/sun3.mp4';
