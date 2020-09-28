@@ -15,15 +15,16 @@ import caracciolaVideo      from './assets/videos/portfolio/compressedx2/caracci
 import hazardVideo          from './assets/videos/portfolio/compressedx2/hazard.mp4';
 import tomorrowLandVideo    from './assets/videos/portfolio/compressedx2/tomorrowland.mp4';
 import fifa21               from './assets/videos/portfolio/compressed/fifa.mp4';
+import flocking             from './assets/videos/lab/compressed/swarm.mp4'
 
-import plexusGif from './assets/videos/lab/gif_small/plexus.gif';
-import sunGif from './assets/videos/lab/gif_small/sun3.gif';
-import bubbleGif from './assets/videos/lab/gif_small/bubble.gif';
-import hamiltonGif from './assets/videos/portfolio/gif_small/hamilton.gif';
-import fangioGif from './assets/videos/portfolio/gif_small/fangio.gif';
-import caracciolaGif from './assets/videos/portfolio/gif_small/caracciola.gif';
-import hazardGif from './assets/videos/portfolio/gif_small/hazard.gif';
-import tomorrowLandGif from './assets/videos/portfolio/gif_small/tomorrowland.gif';
+import plexusGif            from './assets/videos/lab/gif_small/plexus.gif';
+import sunGif               from './assets/videos/lab/gif_small/sun3.gif';
+import bubbleGif            from './assets/videos/lab/gif_small/bubble.gif';
+import hamiltonGif          from './assets/videos/portfolio/gif_small/hamilton.gif';
+import fangioGif            from './assets/videos/portfolio/gif_small/fangio.gif';
+import caracciolaGif        from './assets/videos/portfolio/gif_small/caracciola.gif';
+import hazardGif            from './assets/videos/portfolio/gif_small/hazard.gif';
+import tomorrowLandGif      from './assets/videos/portfolio/gif_small/tomorrowland.gif';
 
 
 import './styles.css'
@@ -97,15 +98,15 @@ const callbackOnLoad = (event) => {
 loader.load(hexagonObj, callbackOnLoad, null, null, null, false)
 
 const experiments = [
-    // {
-    //     name: "Motionblur particles",
-    //     tech: "WebGL",
-    //     languages: "Javascript / GLSL Shaders / PostProcessing",
-    //     videoSrc: motionVideo,
-    //     posterFrame: 0,
-    //     gifSrc: null,
-    //     filter: false
-    // },
+    {
+        name: "Web flocking",
+        tech: "WebGL",
+        languages: "Javascript / GLSL Shaders / PostProcessing / GPGPU",
+        videoSrc: flocking,
+        posterFrame: 4,
+        gifSrc: null,
+        filter: false
+    },
     {
         name: "WebGL Bubble",
         tech: "WebGL",
