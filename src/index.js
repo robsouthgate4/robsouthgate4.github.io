@@ -97,15 +97,15 @@ const callbackOnLoad = (event) => {
 loader.load(hexagonObj, callbackOnLoad, null, null, null, false)
 
 const experiments = [
-    {
-        name: "Motionblur particles",
-        tech: "WebGL",
-        languages: "Javascript / GLSL Shaders / PostProcessing",
-        videoSrc: motionVideo,
-        posterFrame: 0,
-        gifSrc: null,
-        filter: false
-    },
+    // {
+    //     name: "Motionblur particles",
+    //     tech: "WebGL",
+    //     languages: "Javascript / GLSL Shaders / PostProcessing",
+    //     videoSrc: motionVideo,
+    //     posterFrame: 0,
+    //     gifSrc: null,
+    //     filter: false
+    // },
     {
         name: "WebGL Bubble",
         tech: "WebGL",
