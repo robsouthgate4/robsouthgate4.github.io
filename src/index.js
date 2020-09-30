@@ -1,31 +1,35 @@
-import 'three/examples/js/loaders/LoaderSupport'
-import 'three/examples/js/loaders/OBJLoader2'
-import hexagonObj       from './models/hexagon/hexagon.obj'
-import Webgl            from './Webgl'
+import "three/examples/js/loaders/LoaderSupport"
+import "three/examples/js/loaders/OBJLoader2"
+import hexagonObj       from "./models/hexagon/hexagon.obj"
+import Webgl            from "./Webgl"
 import cursorScroll     from "./assets/images/scroll.png"
 
 
-import plexusVideo          from './assets/videos/lab/compressedx2/plexus.mp4';
-import sunVideo             from './assets/videos/lab/compressedx2/sun3.mp4';
-import bubbleVideo          from './assets/videos/lab/compressedx2/bubble.mp4';
-import motionVideo          from './assets/videos/lab/compressedx2/motionFlow2.mp4';
-import hamiltonVideo        from './assets/videos/portfolio/compressedx2/hamilton.mp4';
-import fangioVideo          from './assets/videos/portfolio/compressedx2/fangio.mp4';
-import caracciolaVideo      from './assets/videos/portfolio/compressedx2/caracciola.mp4';
-import hazardVideo          from './assets/videos/portfolio/compressedx2/hazard.mp4';
-import tomorrowLandVideo    from './assets/videos/portfolio/compressedx2/tomorrowland.mp4';
-import fifa21               from './assets/videos/portfolio/compressed/fifa.mp4';
-import flocking             from './assets/videos/lab/compressed/swarm.mp4'
-import cca                  from './assets/videos/lab/compressed/cca.mp4'
+import plexusVideo          from "./assets/videos/lab/compressedx2/plexus.mp4";
+import sunVideo             from "./assets/videos/lab/compressedx2/sun3.mp4";
+import bubbleVideo          from "./assets/videos/lab/compressedx2/bubble.mp4";
+import motionVideo          from "./assets/videos/lab/compressedx2/motionFlow2.mp4";
+import hamiltonVideo        from "./assets/videos/portfolio/compressedx2/hamilton.mp4";
+import fangioVideo          from "./assets/videos/portfolio/compressedx2/fangio.mp4";
+import caracciolaVideo      from "./assets/videos/portfolio/compressedx2/caracciola.mp4";
+import hazardVideo          from "./assets/videos/portfolio/compressedx2/hazard.mp4";
+import tomorrowLandVideo    from "./assets/videos/portfolio/compressedx2/tomorrowland.mp4";
+import fifa21               from "./assets/videos/portfolio/compressed/fifa.mp4";
+import flocking             from "./assets/videos/lab/compressed/swarm.mp4";
+import cca                  from "./assets/videos/lab/compressed/cca.mp4";
 
-import plexusGif            from './assets/videos/lab/gif_small/plexus.gif';
-import sunGif               from './assets/videos/lab/gif_small/sun3.gif';
-import bubbleGif            from './assets/videos/lab/gif_small/bubble.gif';
-import hamiltonGif          from './assets/videos/portfolio/gif_small/hamilton.gif';
-import fangioGif            from './assets/videos/portfolio/gif_small/fangio.gif';
-import caracciolaGif        from './assets/videos/portfolio/gif_small/caracciola.gif';
-import hazardGif            from './assets/videos/portfolio/gif_small/hazard.gif';
-import tomorrowLandGif      from './assets/videos/portfolio/gif_small/tomorrowland.gif';
+import plexusGif            from "./assets/videos/lab/gif_small/plexus.gif";
+import sunGif               from "./assets/videos/lab/gif_small/sun3.gif";
+import bubbleGif            from "./assets/videos/lab/gif_small/bubble.gif";
+import ccaGIF               from "./assets/videos/lab/gif/cca.gif";
+import swarmGIF             from "./assets/videos/lab/gif/swarm.gif";
+import hamiltonGif          from "./assets/videos/portfolio/gif_small/hamilton.gif";
+import fangioGif            from "./assets/videos/portfolio/gif_small/fangio.gif";
+import caracciolaGif        from "./assets/videos/portfolio/gif_small/caracciola.gif";
+import hazardGif            from "./assets/videos/portfolio/gif_small/hazard.gif";
+import tomorrowLandGif      from "./assets/videos/portfolio/gif_small/tomorrowland.gif";
+
+
 
 
 import './styles.css'
@@ -105,7 +109,7 @@ const experiments = [
         languages: "Javascript / GLSL Shaders / PostProcessing / GPGPU / Algorithms",
         videoSrc: cca,
         posterFrame: 1,
-        gifSrc: null,
+        gifSrc: ccaGIF,
         filter: false
     },
     {
@@ -114,7 +118,7 @@ const experiments = [
         languages: "Javascript / GLSL Shaders / PostProcessing / GPGPU",
         videoSrc: flocking,
         posterFrame: 4,
-        gifSrc: null,
+        gifSrc: swarmGIF,
         filter: false
     },
     {
@@ -234,14 +238,14 @@ function createItemVideo( project ) {
     const languages = document.createElement('p');
     languages.innerText = project.languages;
 
-    const video = document.createElement('video');
-    video.id = `video-${project.name}`
-    video.src = `${ project.videoSrc }#t=${project.posterFrame || 0}`;
-    video.autoplay = false;
-    video.loop = true;
-    video.controls = false;
-    video.currentTime = 0;
-    video.muted = true;
+    const video         = document.createElement('video');
+    video.id            = `video-${project.name}`
+    video.src           = `${ project.videoSrc }#t=${project.posterFrame || 0}`;
+    video.autoplay      = false;
+    video.loop          = true;
+    video.controls      = false;
+    video.currentTime   = 0;
+    video.muted         = true;
 
     video.setAttribute('webkit-playsinline', 'webkit-playsinline');
 
@@ -375,11 +379,15 @@ function createItemGif( project ) {
     const languages = document.createElement('p');
     languages.innerText = project.languages;
 
-    const gif = document.createElement('img');
-    gif.id = `gif-${project.name}`
-    gif.src = project.gifSrc;
+    if ( project.gifSrc ) {
 
-    li.append(gif);
+        const gif = document.createElement('img');
+        gif.id = `gif-${project.name}`
+        gif.src = project.gifSrc;
+
+        li.append(gif);
+
+    }   
 
 
     const text = document.createElement('div');
@@ -411,13 +419,13 @@ function createItemGif( project ) {
 
 experiments.forEach((project) => {
 
-    if ( getMobileOperatingSystem() != "iOS" ) {
+    if ( getMobileOperatingSystem() != "iOS" ) {        
 
         lab.appendChild(createItemVideo(project));
 
     } else {
 
-        if ( ! project.gifSrc ) return;
+        if ( ! project.gifSrc || project.gif === null ) return;
 
         lab.appendChild(createItemGif(project));
 
